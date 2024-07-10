@@ -2,6 +2,5 @@
 To use this script, run the following command:
 
 ```
-git clone https://github.com/Tozuck/t_node/tree/main/t_node.git && bash t_node/t_node.sh
 git clone https://github.com/Tozuck/t_node.git && bash t_node/t_node.sh
 ```
