@@ -79,17 +79,6 @@ sleep 3
 cd ~/Marzban-node
 docker compose up -d
 
-sleep 2
-
-sudo apt install -y apache2
-
-# Create /var/www/html/file.txt with appropriate permissions
-sudo touch /var/www/html/file.txt
-sudo chown www-data:www-data /var/www/html/file.txt
-sudo chmod 664 /var/www/html/file.txt
-
-# Install Python dependencies from req.txt
-sudo apt install -y python3-pip
 sudo pip3 install -r req.txt
 
 # Run monitor.py in the background
