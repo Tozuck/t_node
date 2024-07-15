@@ -79,7 +79,4 @@ sleep 3
 cd ~/Marzban-node
 docker compose up -d
 
-sudo pip3 install -r req.txt
 
-# Run monitor.py in the background
-nohup python3 monitor.py > monitor.log 2>&1 &
