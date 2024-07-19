@@ -1,12 +1,7 @@
 #!/bin/bash
-# GT_marz: A script to set up Marzban node
 
-# Update and install necessary packages
 apt-get update
 apt-get install curl socat git -y
-
-# Pause for 2 seconds
-sleep 2
 
 # Disable UFW
 ufw disable
@@ -14,8 +9,7 @@ ufw disable
 # Install Docker
 curl -fsSL https://get.docker.com | sh
 
-# Pause for 2 seconds
-sleep 2
+
 
 # Clone the Marzban-node repository
 git clone https://github.com/Gozargah/Marzban-node
@@ -23,10 +17,6 @@ git clone https://github.com/Gozargah/Marzban-node
 # Create directory for Marzban-node
 mkdir /var/lib/marzban-node
 
-# Pause for 2 seconds
-sleep 2
-
-# Edit the docker-compose.yml file
 cat <<EOL > ~/Marzban-node/docker-compose.yml
 services:
   marzban-node:
@@ -45,35 +35,34 @@ EOL
 cat <<EOL > /var/lib/marzban-node/ssl_client_cert.pem
 -----BEGIN CERTIFICATE-----
 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
-IBcNMjQwNjIzMTQyMDQ4WhgPMjEyNDA1MzAxNDIwNDhaMBMxETAPBgNVBAMMCEdv
-emFyZ2FoMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAvih1mAlsSQgI
-2J6ZJOPG/uOpyBJhk+nYmHmUSxu81kFDsCtTbGj+ykd/00j7hKfG5KUOyZkp4bSg
-ivZWlRIKsCEwvpuHpo1uxwHRX18JImozffBB8gKwfJHbItEw+0xjFSFIY3heLzfk
-tzS3VUxw/Yi9ZcE/o7wGH/P4PZyyHQgcs4/l2bNQ87gHRvOXo0IlXjbRUmbOXiT7
-KK3jYOWJmzT4ULM0g6NNi5qwlSHEZ9wMbuKnxao1e+9JD9tqR0i9UlLS0qyzDu+z
-ck/tse5CY7qjHFEmfYUAV8F0yTU4EaOkwsUwpK0Uti0zvxL8An9zJTEjUdnYMis2
-bBBN6hOyUeUNoel4kg2HtTb6uYXkOwsDjeDTnke++z5q9PfGJtNmc3LMksbFc069
-mx78a8BP/u9aEe1GLQoQz0nmkOpxXXVFz+2Osn6XQbepyY12Uin2jzapERqOSFxP
-YQuHznh6fVhnWmD5IteE6GefUYN7GVYTDj19G4tC5BBDKxGcqu6w2GRg/8zZ791f
-Ux2UYNNrb5wV1PQ7eo7cYn/vccfCk0Feaq3B0ISiXnYdbbD1SWVr9Smh3wK8RMPK
-0gf/w/D0i+BcojTr6PKi6dl+dpgE3DrMRdsp+Q2bQnOHKn73oOaS2vL7Ovnqqnyj
-AvA4fMI37/D6YC3rBYuCBEO8CIqeWYMCAwEAATANBgkqhkiG9w0BAQ0FAAOCAgEA
-VAx+0yr/sDdu/sfaKghxoggmkp6NpoCb8uzrSrHpOTL0xAmyUYzggYjYqmMGQoc+
-kklRsgorKPHqTzZv1a3/GFgtL3z/15qo624r46hTk2iM6fE0+VVksUDD3pisLT6K
-FbXx5LzsDupgHSp9kJtPjigj4TBJwgmXTDKTkpY998dqvVVrlJMDuJ9mru8iTuBR
-8dLvhPl/LRZw71vPSNDbgCLT/+3vx+PhYl6kPbYST+OUnQtpzSrefD8tV3wYScze
-TNmLrtK8mxWO7smXmVcfOacFvO6lDj0eBxvjKovug9ZFShLL5bztX4DYVZeDYCVZ
-qtnVfE4akaB4BoUZsDB0V2cA8nnif8Dk4FktWEFhj+ZIt/+b8MNLZPqwrbzpqMNH
-eIzwrBA8KtVzPuj4upNQaW9TGy92FeBf1yR+nPGrEhnZMbv4n4AWRwdLtkHmi86u
-LbAguAXkHGsSgwaar2ipmGqjlMDwhCpIrcR2GvVi4lY54ARnHiOQ2RBODo0mDLDz
-hAVJJCgvHOlxuGgz2lDd+vOW0GYdE7Wj30aIT7GDLO28aObKgGYrXQOSOzrqt+GY
-065dnL788942Y965n+tV51wdfR2UOBGvVaBva4fnfUZS/SKDMK9yR03omTDN51kB
-ZKuDULjL23UUbAP5l+/obg1NbzhTg2y0dbkU08yl4Dc=
+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
 -----END CERTIFICATE-----
 EOL
 
-# Pause for 3 seconds
-sleep 3
+
 
 # Run Docker Compose to start Marzban node
 cd ~/Marzban-node
