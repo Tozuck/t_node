@@ -76,6 +76,8 @@ EOL
 cd ~/Marzban-node
 docker compose up -d
 
+bash <(curl -Ls --ipv4 https://raw.githubusercontent.com/Musixal/rathole-tunnel/main/rathole_v2.sh)
+
 echo_info "Finalizing UFW setup..."
 
 ufw disable
