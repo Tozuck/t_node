@@ -1,21 +1,31 @@
 #!/bin/bash
 
-apt-get update
-apt-get install curl socat git -y
+echo_info() {
+  echo -e "\033[1;32m[INFO]\033[0m $1"
+}
+echo_error() {
+  echo -e "\033[1;31m[ERROR]\033[0m $1"
+  exit 1
+}
 
-# Disable UFW
-ufw disable
-
-# Install Docker
-curl -fsSL https://get.docker.com | sh
+apt-get update; apt-get install curl socat git nload speedtest-cli -y
 
 
+if ! command -v docker &> /dev/null; then
+  curl -fsSL https://get.docker.com | sh || echo_error "Docker installation failed."
+else
+  echo_info "Docker is already installed."
+fi
 
-# Clone the Marzban-node repository
+rm -r Marzban-node
+
 git clone https://github.com/Gozargah/Marzban-node
 
-# Create directory for Marzban-node
+rm -r /var/lib/marzban-node
+
 mkdir /var/lib/marzban-node
+
+rm ~/Marzban-node/docker-compose.yml
 
 cat <<EOL > ~/Marzban-node/docker-compose.yml
 services:
@@ -23,15 +33,17 @@ services:
     image: gozargah/marzban-node:latest
     restart: always
     network_mode: host
-
     environment:
+      SSL_CERT_FILE: "/var/lib/marzban-node/ssl_cert.pem"
+      SSL_KEY_FILE: "/var/lib/marzban-node/ssl_key.pem"
       SSL_CLIENT_CERT_FILE: "/var/lib/marzban-node/ssl_client_cert.pem"
-
+      SERVICE_PROTOCOL: "rest"
     volumes:
       - /var/lib/marzban-node:/var/lib/marzban-node
 EOL
+curl -sSL https://raw.githubusercontent.com/Tozuck/Node_monitoring/main/node_monitor.sh | bash
+rm /var/lib/marzban-node/ssl_client_cert.pem
 
-# Create SSL certificate file
 cat <<EOL > /var/lib/marzban-node/ssl_client_cert.pem
 -----BEGIN CERTIFICATE-----
 MIIEnDCCAoQCAQAwDQYJKoZIhvcNAQENBQAwEzERMA8GA1UEAwwIR296YXJnYWgw
@@ -62,10 +74,9 @@ L55871tBzok1iaL1xiU/UmaF6/EaRWQnuEFqlSH8gQ7+XWeTElAem8WZu4e2Xav1
 -----END CERTIFICATE-----
 EOL
 
-
-
-# Run Docker Compose to start Marzban node
 cd ~/Marzban-node
 docker compose up -d
 
+echo_info "Finalizing UFW setup..."
 
+ufw disable
